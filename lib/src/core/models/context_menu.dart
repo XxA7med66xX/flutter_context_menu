@@ -11,28 +11,20 @@ class ContextMenu {
   Offset? position;
 
   /// The entries of the context menu.
-  List<ContextMenuEntry> entries;
+  final List<ContextMenuEntry> entries;
 
-  /// The padding of the context menu.
-  ///
-  /// Defaults to [EdgeInsets.all(4.0)]
-  EdgeInsets padding;
-
-  /// The border radius around the context menu.
-  BorderRadiusGeometry? borderRadius;
+  /// A class that holds all style properties of contextMenu.
+  final ContextMenuStyle style;
 
   /// The maximum width of the context menu.
   ///
   /// Defaults to 350.0
-  double maxWidth;
+  final double maxWidth;
 
   /// The clip behavior of the context menu.
   ///
   /// Defaults to [Clip.antiAlias]
-  Clip clipBehavior;
-
-  /// The decoration of the context menu.
-  BoxDecoration? boxDecoration;
+  final Clip clipBehavior;
 
   /// A map of shortcuts to be bound to the context menu and the nested context menus.
   ///
@@ -42,16 +34,14 @@ class ContextMenu {
   ContextMenu({
     required this.entries,
     this.position,
-    EdgeInsets? padding,
-    this.borderRadius,
+    required this.style,
     double? maxWidth,
     Clip? clipBehavior,
-    this.boxDecoration,
     Map<ShortcutActivator, VoidCallback>? shortcuts,
-  })  : padding = padding ?? const EdgeInsets.all(4.0),
-        maxWidth = maxWidth ?? 350.0,
+  })  : maxWidth = maxWidth ?? 350.0,
         clipBehavior = clipBehavior ?? Clip.antiAlias,
         shortcuts = shortcuts ?? const {};
+        
 
   /// A shortcut method to show the context menu.
   ///
@@ -63,6 +53,7 @@ class ContextMenu {
   ContextMenu copyWith({
     Offset? position,
     List<ContextMenuEntry>? entries,
+    ContextMenuStyle? style,
     EdgeInsets? padding,
     BorderRadiusGeometry? borderRadius,
     double? maxWidth,
@@ -72,10 +63,63 @@ class ContextMenu {
     return ContextMenu(
       position: position ?? this.position,
       entries: entries ?? this.entries,
-      padding: padding ?? this.padding,
-      borderRadius: borderRadius ?? this.borderRadius,
+      style: style ?? this.style,
       maxWidth: maxWidth ?? this.maxWidth,
       clipBehavior: clipBehavior ?? this.clipBehavior,
+    );
+  }
+}
+
+class ContextMenuStyle {
+  /// The label style of the context menu.
+  final TextStyle? labelStyle;
+
+  /// The leading icon size of the context menu.
+  final double? leadingIconSize;
+  
+  /// The trailing icon size of the context menu.
+  final double? trailingIconSize;
+
+  /// The padding of the context menu.
+  ///
+  /// Defaults to [EdgeInsets.all(4.0)]
+  final EdgeInsets padding;
+
+  /// The gap between menu icon and label or sub-title if exist.
+  final double? horizontalTitleGap;
+
+  /// The border radius around the context menu.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// The decoration of the context menu.
+  final BoxDecoration? boxDecoration;
+
+  ContextMenuStyle({
+    this.labelStyle = const TextStyle(),
+    this.leadingIconSize = 16,
+    this.trailingIconSize = 16,
+    this.padding = const EdgeInsets.all(5),
+    this.horizontalTitleGap,
+    this.borderRadius,
+    this.boxDecoration,
+  });
+
+  ContextMenuStyle copyWith({
+    TextStyle? labelStyle,
+    double? leadingIconSize,
+    double? trailingIconSize,
+    EdgeInsets? padding,
+    double? horizontalTitleGap,
+    BorderRadiusGeometry? borderRadius,
+    BoxDecoration? boxDecoration,
+  }) {
+    return ContextMenuStyle(
+      labelStyle: labelStyle ?? this.labelStyle,
+      leadingIconSize: leadingIconSize ?? this.leadingIconSize,
+      trailingIconSize: trailingIconSize ?? this.trailingIconSize,
+      padding: padding ?? this.padding,
+      horizontalTitleGap: horizontalTitleGap ?? this.horizontalTitleGap,
+      borderRadius: borderRadius ?? this.borderRadius,
       boxDecoration: boxDecoration ?? this.boxDecoration,
     );
   }

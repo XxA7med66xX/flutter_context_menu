@@ -66,10 +66,8 @@ class ContextMenuState extends ChangeNotifier {
   List<ContextMenuEntry> get entries => menu.entries;
   Offset get position => menu.position ?? Offset.zero;
   double get maxWidth => menu.maxWidth;
-  BorderRadiusGeometry? get borderRadius => menu.borderRadius;
-  EdgeInsets get padding => menu.padding;
+  ContextMenuStyle get style => menu.style;
   Clip get clipBehavior => menu.clipBehavior;
-  BoxDecoration? get boxDecoration => menu.boxDecoration;
   Map<ShortcutActivator, VoidCallback> get shortcuts => menu.shortcuts;
 
   ContextMenuEntry? get focusedEntry => _focusedEntry;
@@ -121,8 +119,8 @@ class ContextMenuState extends ChangeNotifier {
     double left = parentRect.left + parentRect.width;
     double top = parentRect.top;
 
-    left += menu.padding.right;
-    top -= menu.padding.top;
+    left += menu.style.padding.right;
+    top -= menu.style.padding.top;
 
     return Offset(left, top);
   }

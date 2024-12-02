@@ -63,7 +63,6 @@ final class MenuItem<T> extends ContextMenuItem<T> {
     );
     final focusedTextColor = context.colorScheme.onSurface;
     final foregroundColor = isFocused ? focusedTextColor : normalTextColor;
-    final textStyle = TextStyle(color: foregroundColor, height: 1.0);
 
     // ~~~~~~~~~~ //
 
@@ -71,45 +70,47 @@ final class MenuItem<T> extends ContextMenuItem<T> {
       constraints: constraints ?? const BoxConstraints.expand(height: 32.0),
       child: Material(
         color: isFocused ? context.theme.focusColor.withAlpha(20) : background,
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: menuState.style.borderRadius,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () => handleItemSelection(context),
           canRequestFocus: false,
-          child: DefaultTextStyle(
-            style: textStyle,
-            child: Row(
-              children: [
-                SizedBox.square(
-                  dimension: 32.0,
+          child: Row(
+            children: [
+              SizedBox.square(
+                dimension: 32.0,
+                child: Icon(
+                  icon,
+                  size: menuState.style.leadingIconSize,
+                  color: foregroundColor,
+                ),
+              ),
+              
+              if(icon != null) SizedBox(width: menuState.style.horizontalTitleGap), 
+              
+              Expanded(
+                child: Text(
+                  label,
+                  style: menuState.style.labelStyle!.copyWith(
+                    color: foregroundColor,
+                    height: 1.0,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox.square(
+                dimension: 32.0,
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
                   child: Icon(
-                    icon,
-                    size: 16.0,
+                    isSubmenuItem ? Icons.arrow_right : null,
+                    size: menuState.style.trailingIconSize,
                     color: foregroundColor,
                   ),
                 ),
-                const SizedBox(width: 4.0),
-                Expanded(
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                SizedBox.square(
-                  dimension: 32.0,
-                  child: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Icon(
-                      isSubmenuItem ? Icons.arrow_right : null,
-                      size: 16.0,
-                      color: foregroundColor,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

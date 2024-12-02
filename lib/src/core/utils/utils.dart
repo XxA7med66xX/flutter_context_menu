@@ -33,8 +33,8 @@ import '../utils/extensions.dart';
 
   if (isWidthExceed()) {
     if (isSubmenu && parentRect != null) {
-      final toRightSide = parentRect.right + menu.padding.left;
-      final toLeftSide = parentRect.left - menuRect.width - menu.padding.right;
+      final toRightSide = parentRect.right + menu.style.padding.left;
+      final toLeftSide = parentRect.left - menuRect.width - menu.style.padding.right;
       final maxRight = safeScreenRect.right - menuRect.width;
       final maxLeft = safeScreenRect.left;
 
@@ -95,7 +95,7 @@ import '../utils/extensions.dart';
   if (isHeightExceed()) {
     if (isSubmenu && parentRect != null) {
       y = max(safeScreenRect.top,
-          safeScreenRect.bottom - menuRect.height - menu.padding.top);
+          safeScreenRect.bottom - menuRect.height - menu.style.padding.top);
     } else if (!isSubmenu) {
       y = max(safeScreenRect.top, menuRect.top - menuRect.height);
     }

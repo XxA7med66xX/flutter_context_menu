@@ -65,7 +65,7 @@ class ContextMenuWidget extends StatelessWidget {
           spreadRadius: -1,
         )
       ],
-      borderRadius: state.borderRadius ?? BorderRadius.circular(4.0),
+      borderRadius: state.style.borderRadius ?? BorderRadius.circular(4.0),
     );
 
     return TweenAnimationBuilder<double>(
@@ -79,12 +79,12 @@ class ContextMenuWidget extends StatelessWidget {
           alignment: state.spawnAlignment,
           scale: value,
           child: Container(
-            padding: state.padding,
+            padding: state.style.padding,
             constraints: BoxConstraints(
               maxWidth: state.maxWidth,
             ),
             clipBehavior: state.clipBehavior,
-            decoration: state.boxDecoration ?? boxDecoration,
+            decoration: state.style.boxDecoration ?? boxDecoration,
             child: Material(
               type: MaterialType.transparency,
               child: IntrinsicWidth(

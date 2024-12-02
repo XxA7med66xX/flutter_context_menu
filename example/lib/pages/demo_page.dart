@@ -3,29 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_context_menu/flutter_context_menu.dart';
 
 Map<String, ContextMenu> _contextMenus() => {
-      "Default (built-in)": ContextMenu(entries: defaultContextMenuItems),
+      "Default (built-in)": ContextMenu(entries: defaultContextMenuItems, style: ContextMenuStyle()),
       "Custom\n\nmax width: 200\npadding: 0": ContextMenu(
+        style: ContextMenuStyle(padding: EdgeInsets.zero),
         entries: customContextMenuItems,
         maxWidth: 200,
-        padding: EdgeInsets.zero,
       ),
       "Custom with box decoration\n\npadding: horizontal(8)": ContextMenu(
         entries: customContextMenuItems,
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        boxDecoration: BoxDecoration(
-          color: Colors.blue.shade900,
-          borderRadius: BorderRadius.zero,
-          boxShadow: const [
-            BoxShadow(
-              offset: Offset(5, 5),
-              blurRadius: 0.5,
-            )
-          ],
+        style: ContextMenuStyle(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          boxDecoration: BoxDecoration(
+            color: Colors.blue.shade900,
+            borderRadius: BorderRadius.zero,
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(5, 5),
+                blurRadius: 0.5,
+              )
+            ],
+          ),
         ),
       ),
       "Default\n\nposition (x: 50, y: 30)\npadding: 0": ContextMenu(
         entries: defaultContextMenuItems,
-        padding: EdgeInsets.zero,
+        style: ContextMenuStyle(padding: EdgeInsets.zero),
         position: const Offset(50, 30),
       )
     };
