@@ -39,7 +39,7 @@ final class CustomContextMenuItem extends ContextMenuItem<String> {
     final Color foregroundColor = isFocused ? focusedTextColor : normalTextColor;
     
     return ListTile(
-      contentPadding: const EdgeInsets.all(0),
+      contentPadding: icon != null ? EdgeInsets.zero : const EdgeInsets.symmetric(horizontal: 5),
       horizontalTitleGap: (menuState.style.horizontalTitleGap ?? 0) + 4,
       shape: RoundedRectangleBorder(
         borderRadius: menuState.style.borderRadius ?? const BorderRadius.all(Radius.zero),
@@ -61,14 +61,17 @@ final class CustomContextMenuItem extends ContextMenuItem<String> {
         isSubmenuItem ? Icons.arrow_right : null,
         size: menuState.style.trailingIconSize,
       ),
-      leading: SizedBox.square(
-        dimension: 32.0,
-        child: Icon(
-          icon,
-          size: menuState.style.leadingIconSize,
-          color: foregroundColor,
-        ),
-      ),
+      leading: switch (icon) {
+        null => null,
+        (_) => SizedBox.square(
+            dimension: 32.0,
+            child: Icon(
+              icon,
+              size: menuState.style.leadingIconSize,
+              color: foregroundColor,
+            ),
+          ),
+      },
       dense: false,
       selected: menuState.isOpened(this),
       selectedColor: Colors.white,

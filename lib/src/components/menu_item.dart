@@ -77,16 +77,20 @@ final class MenuItem<T> extends ContextMenuItem<T> {
           canRequestFocus: false,
           child: Row(
             children: [
-              SizedBox.square(
-                dimension: 32.0,
-                child: Icon(
-                  icon,
-                  size: menuState.style.leadingIconSize,
-                  color: foregroundColor,
+              if (icon != null) ...[
+                SizedBox.square(
+                  dimension: 32.0,
+                  child: Icon(
+                    icon,
+                    size: menuState.style.leadingIconSize,
+                    color: foregroundColor,
+                  ),
                 ),
-              ),
-              
-              if(icon != null) SizedBox(width: menuState.style.horizontalTitleGap), 
+                
+                SizedBox(width: menuState.style.horizontalTitleGap),
+              ],
+
+              if(icon == null) const SizedBox(width: 5),
               
               Expanded(
                 child: Text(
