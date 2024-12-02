@@ -45,14 +45,11 @@ final class CustomContextMenuItem extends ContextMenuItem<String> {
         borderRadius: menuState.style.borderRadius ?? const BorderRadius.all(Radius.zero),
       ),
       focusNode: focusNode, // important for highlighting item on focus
-      title: SizedBox(
-        width: double.maxFinite,
-        child: Text(
-          label,
-          style: menuState.style.labelStyle!.copyWith(
-            color: foregroundColor,
-            height: 1.0,
-          ),
+      title: Text(
+        label,
+        style: menuState.style.labelStyle!.copyWith(
+          color: foregroundColor,
+          height: 1.0,
         ),
       ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
