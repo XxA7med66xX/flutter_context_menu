@@ -100,14 +100,14 @@
       const MenuHeader(text: "Context Menu"),
       MenuItem(
         label: 'Copy',
-        icon: Icons.copy,
+        leadingIcon: const Icon(Icons.copy),
         onSelected: () {
           // implement copy
         },
       ),
       MenuItem(
         label: 'Paste',
-        icon: Icons.paste,
+        leadingIcon: const Icon(Icons.paste),
         onSelected: () {
           // implement paste
         },
@@ -115,12 +115,12 @@
       const MenuDivider(),
       MenuItem.submenu(
         label: 'Edit',
-        icon: Icons.edit,
+        leadingIcon: const Icon(Icons.edit),
         items: [
           MenuItem(
             label: 'Undo',
             value: "Undo",
-            icon: Icons.undo,
+            leadingIcon: const Icon(Icons.undo),
             onSelected: () {
               // implement undo
             },
@@ -128,7 +128,7 @@
           MenuItem(
             label: 'Redo',
             value: 'Redo',
-            icon: Icons.redo,
+            leadingIcon: const Icon(Icons.redo),
             onSelected: () {
               // implement redo
             },
@@ -141,7 +141,9 @@
     final menu = ContextMenu(
       entries: entries,
       position: const Offset(300, 300),
-      padding: const EdgeInsets.all(8.0),
+      style: ContextMenuStyle(
+        padding: const EdgeInsets.all(8.0),
+      ),
     );
     ```
 
