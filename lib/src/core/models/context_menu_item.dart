@@ -86,6 +86,43 @@ abstract base class ContextMenuItem<T> extends ContextMenuEntry {
     }
   }
 
+  /// Check whether the widget type is icon.
+  bool isWidgetIcon(Widget? widget) {
+    if (widget != null && widget is Icon) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Build the icon for both leading and trailing.
+  /// When [isLeading] is false, it means this is trailing.
+  /// When a size is defined, it will be used; otherwise,
+  /// the defualt size from [ContextMenuStyle] will be used.
+  Widget buildIcon({
+    required IconData? icon,
+    required Color foregroundColor,
+    required ContextMenuState menuState,
+    double? size,
+    bool isLeading = false,
+  }) {
+    var theIcon = SizedBox.square(
+      dimension: 32.0,
+      child: Icon(
+        icon,
+        size: isLeading
+            ? size ?? menuState.style.leadingIconSize
+            : size ?? menuState.style.trailingIconSize,
+        color: foregroundColor,
+      ),
+    );
+
+    if (icon == null) return const SizedBox.shrink();
+
+    if (isLeading) return theIcon;
+
+    return isSubmenuItem ? theIcon : const SizedBox.shrink();
+  }
+
   @override
   Widget builder(BuildContext context, ContextMenuState menuState,
       [FocusNode focusNode]);

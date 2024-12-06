@@ -75,9 +75,11 @@ class ContextMenuStyle {
   final TextStyle? labelStyle;
 
   /// The leading icon size of the context menu.
+  /// this has no effect if a non-icon is passed.
   final double? leadingIconSize;
   
-  /// The trailing icon size of the context menu.
+  /// The trailing icon size of the context menu,
+  /// this has no effect if a non-icon is passed.
   final double? trailingIconSize;
 
   /// The padding of the context menu.

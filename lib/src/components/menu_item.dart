@@ -14,7 +14,9 @@ import 'menu_header.dart';
 ///
 /// #### Parameters:
 /// - [label] - The title of the context menu item
-/// - [icon] - The icon of the context menu item.
+/// - [leadingIcon] - The icon of the context menu item.
+/// - [trailingIcon] - The icon indicates that context menu 
+///   includes sub-menu items.
 /// - [constraints] - The height of the context menu item.
 /// - [focusNode] - The focus node of the context menu item.
 /// - [value] - The value associated with the context menu item.
@@ -32,21 +34,23 @@ import 'menu_header.dart';
 ///
 final class MenuItem<T> extends ContextMenuItem<T> {
   final String label;
-  final IconData? icon;
+  final Widget? leadingIcon;
+  final Widget? trailingIcon;
   final BoxConstraints? constraints;
 
   const MenuItem({
     required this.label,
-    this.icon,
+    this.leadingIcon,
     super.value,
     super.onSelected,
     this.constraints,
-  });
+  }) : trailingIcon = null;
 
   const MenuItem.submenu({
     required this.label,
     required List<ContextMenuEntry> items,
-    this.icon,
+    this.leadingIcon,
+    this.trailingIcon,
     super.onSelected,
     this.constraints,
   }) : super.submenu(items: items);
@@ -77,21 +81,11 @@ final class MenuItem<T> extends ContextMenuItem<T> {
           canRequestFocus: false,
           child: Row(
             children: [
-              if (icon != null) ...[
-                SizedBox.square(
-                  dimension: 32.0,
-                  child: Icon(
-                    icon,
-                    size: menuState.style.leadingIconSize,
-                    color: foregroundColor,
-                  ),
-                ),
-                
+              if (leadingIcon != null) ...[
+                _buildLeading(menuState, foregroundColor),
                 SizedBox(width: menuState.style.horizontalTitleGap),
               ],
-
-              if(icon == null) const SizedBox(width: 5),
-              
+              if (leadingIcon == null) const SizedBox(width: 5),
               Expanded(
                 child: Text(
                   label,
@@ -103,21 +97,54 @@ final class MenuItem<T> extends ContextMenuItem<T> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox.square(
-                dimension: 32.0,
-                child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Icon(
-                    isSubmenuItem ? Icons.arrow_right : null,
-                    size: menuState.style.trailingIconSize,
-                    color: foregroundColor,
-                  ),
-                ),
-              )
+              _buildTrailing(foregroundColor, isSubmenuItem, menuState),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLeading(
+    ContextMenuState menuState,
+    Color foregroundColor,
+  ) {
+    if (isWidgetIcon(leadingIcon)) {
+      Icon icon = (leadingIcon as Icon);
+
+      return buildIcon(
+        icon: icon.icon,
+        size: icon.size,
+        foregroundColor: foregroundColor,
+        menuState: menuState,
+        isLeading: true,
+      );
+    } else {
+      return leadingIcon ?? const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildTrailing(
+    Color foregroundColor,
+    bool isSubmenuItem,
+    ContextMenuState menuState,
+  ) {
+    if (isWidgetIcon(trailingIcon)) {
+      final Icon icon = (trailingIcon as Icon);
+
+      return buildIcon(
+        icon: icon.icon!,
+        size: icon.size,
+        foregroundColor: foregroundColor,
+        menuState: menuState,
+        isLeading: false,
+      );
+    }
+    return trailingIcon ?? buildIcon(
+      icon: Icons.arrow_right,
+      foregroundColor: foregroundColor,
+      menuState: menuState,
+      isLeading: false,
     );
   }
 

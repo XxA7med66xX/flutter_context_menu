@@ -6,7 +6,7 @@ import '../entries/custom_context_menu_item.dart';
 const defaultContextMenuItems = <ContextMenuEntry>[
   MenuItem.submenu(
     label: "New",
-    icon: Icons.add_rounded,
+    leadingIcon: Icon(Icons.add_rounded),
     items: [
       MenuItem(
         label: "Node",
@@ -25,27 +25,27 @@ const defaultContextMenuItems = <ContextMenuEntry>[
   MenuItem(
     label: "Open...",
     value: "Open...",
-    icon: Icons.file_open_rounded,
+    leadingIcon: Icon(Icons.file_open_rounded)
   ),
   MenuItem.submenu(
     label: "View",
-    icon: Icons.view_comfy_alt_rounded,
+    leadingIcon: Icon(Icons.view_comfy_alt_rounded),
     items: [
       MenuHeader(text: "Visibility"),
       MenuItem(
         label: "Comapct",
         value: "Comapct",
-        icon: Icons.view_compact_rounded,
+        leadingIcon: Icon(Icons.view_compact_rounded),
       ),
       MenuItem(
         label: "Comfortable",
         value: "Comfortable",
-        icon: Icons.view_comfortable_rounded,
+        leadingIcon: Icon(Icons.view_comfortable_rounded),
       ),
       MenuDivider(),
       MenuItem.submenu(
           label: "Show Mini Map",
-          icon: Icons.screen_search_desktop_rounded,
+          leadingIcon: Icon(Icons.screen_search_desktop_rounded),
           items: [
             MenuItem(
               label: "Show",
@@ -87,11 +87,11 @@ const customContextMenuItems = <ContextMenuEntry>[
     label: "SPIRO SPATHIS",
     value: "SPIRO SPATHIS",
     subtitle: "First Soda Water in Egypt – Since 1920",
-    icon: Icons.local_drink_rounded,
+    leadingIcon: Icon(Icons.local_drink_rounded,)
   ),
   CustomContextMenuItem.submenu(
     label: "Food",
-    icon: Icons.dining_rounded,
+    leadingIcon: Icon(Icons.dining_rounded),
     items: [
       CustomContextMenuItem.submenu(
         label: "Fruits",
@@ -101,31 +101,31 @@ const customContextMenuItems = <ContextMenuEntry>[
             label: "Apple",
             value: "Apple",
             subtitle: "Red",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded)
           ),
           CustomContextMenuItem(
             label: "Orange",
             value: "Orange",
             subtitle: "Orange",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           ),
           CustomContextMenuItem(
             label: "Banana",
             value: "Banana",
             subtitle: "Yellow",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           ),
           CustomContextMenuItem(
             label: "Strawberry",
             value: "Strawberry",
             subtitle: "Red",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           ),
           CustomContextMenuItem(
             label: "Watermelon",
             value: "Watermelon",
             subtitle: "Green",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           )
         ],
       ),
@@ -137,37 +137,37 @@ const customContextMenuItems = <ContextMenuEntry>[
             label: "Carrot",
             value: "Carrot",
             subtitle: "Orange",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           ),
           CustomContextMenuItem.submenu(
               label: "Potato",
               subtitle: "Brown",
-              icon: Icons.star_rounded,
+              leadingIcon: Icon(Icons.star_rounded),
               items: [
                 CustomContextMenuItem(
                   label: "Sweet",
                   value: "Sweet",
                   subtitle: "Sweet",
-                  icon: Icons.star_rounded,
+                  leadingIcon: Icon(Icons.star_rounded),
                 ),
                 CustomContextMenuItem(
                   label: "Sour",
                   value: "Sour",
                   subtitle: "Sour",
-                  icon: Icons.star_rounded,
+                  leadingIcon: Icon(Icons.star_rounded),
                 ),
                 CustomContextMenuItem(
                   label: "Salty",
                   value: "Salty",
                   subtitle: "Salty",
-                  icon: Icons.star_rounded,
+                  leadingIcon: Icon(Icons.star_rounded),
                 ),
               ]),
           CustomContextMenuItem(
             label: "Cucumber",
             value: "Cucumber",
             subtitle: "Green",
-            icon: Icons.star_rounded,
+            leadingIcon: Icon(Icons.star_rounded),
           ),
         ],
       ),

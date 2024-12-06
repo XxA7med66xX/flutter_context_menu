@@ -4,21 +4,23 @@ import 'package:flutter_context_menu/flutter_context_menu.dart';
 final class CustomContextMenuItem extends ContextMenuItem<String> {
   final String label;
   final String? subtitle;
-  final IconData? icon;
+  final Widget? leadingIcon;
+  final Widget? trailingIcon;
 
   const CustomContextMenuItem({
     required this.label,
     super.value,
     super.onSelected,
     this.subtitle,
-    this.icon,
-  });
+    this.leadingIcon,
+  }) : trailingIcon = null;
 
   const CustomContextMenuItem.submenu({
     required this.label,
     required super.items,
     this.subtitle,
-    this.icon,
+    this.leadingIcon,
+    this.trailingIcon,
   }) : super.submenu();
 
   @override
@@ -39,7 +41,7 @@ final class CustomContextMenuItem extends ContextMenuItem<String> {
     final Color foregroundColor = isFocused ? focusedTextColor : normalTextColor;
     
     return ListTile(
-      contentPadding: icon != null ? EdgeInsets.zero : const EdgeInsets.symmetric(horizontal: 5),
+      contentPadding: leadingIcon != null ? EdgeInsets.zero : const EdgeInsets.symmetric(horizontal: 5),
       horizontalTitleGap: (menuState.style.horizontalTitleGap ?? 0) + 4,
       shape: RoundedRectangleBorder(
         borderRadius: menuState.style.borderRadius ?? const BorderRadius.all(Radius.zero),
@@ -54,25 +56,58 @@ final class CustomContextMenuItem extends ContextMenuItem<String> {
       ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       onTap: () => handleItemSelection(context),
-      trailing: Icon(
-        isSubmenuItem ? Icons.arrow_right : null,
-        size: menuState.style.trailingIconSize,
-      ),
-      leading: switch (icon) {
+      trailing: _buildTrailing(foregroundColor, isSubmenuItem, menuState),
+      leading: switch (leadingIcon) {
         null => null,
-        (_) => SizedBox.square(
-            dimension: 32.0,
-            child: Icon(
-              icon,
-              size: menuState.style.leadingIconSize,
-              color: foregroundColor,
-            ),
-          ),
+        (_) => _buildLeading(menuState, foregroundColor),
       },
       dense: false,
       selected: menuState.isOpened(this),
       selectedColor: Colors.white,
       selectedTileColor: Colors.blue,
+    );
+  }
+
+  Widget _buildLeading(
+    ContextMenuState menuState,
+    Color foregroundColor,
+  ) {
+    if (isWidgetIcon(leadingIcon)) {
+      Icon icon = (leadingIcon as Icon);
+
+      return buildIcon(
+        icon: icon.icon,
+        size: icon.size,
+        foregroundColor: foregroundColor,
+        menuState: menuState,
+        isLeading: true,
+      );
+    } else {
+      return leadingIcon ?? const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildTrailing(
+    Color foregroundColor,
+    bool isSubmenuItem,
+    ContextMenuState menuState,
+  ) {
+    if (isWidgetIcon(trailingIcon)) {
+      final Icon icon = (trailingIcon as Icon);
+
+      return buildIcon(
+        icon: icon.icon!,
+        size: icon.size,
+        foregroundColor: foregroundColor,
+        menuState: menuState,
+        isLeading: false,
+      );
+    }
+    return trailingIcon ?? buildIcon(
+      icon: Icons.arrow_right,
+      foregroundColor: foregroundColor,
+      menuState: menuState,
+      isLeading: false,
     );
   }
 
